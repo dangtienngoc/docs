@@ -10,7 +10,7 @@ const SITE_PATHS = [
   '/docs/integrations',
   '/docs/now-cli',
   '/docs/configuration',
-  '/docs/builders'
+  '/docs/runtimes'
 ]
 const META = /export\s+const\s+meta\s+=\s+({[\s\S]*?\n})/
 const SITEMAP_PATH = 'public/sitemap.xml'
@@ -44,7 +44,8 @@ function recursiveReadDirSync(dir, arr = [], rootDir = dir) {
 
 function isV2Page(pagePath) {
   return (
-    !pagePath.endsWith('-mdx') &&
+    !pagePath.includes('-mdx/') &&
+    !pagePath.includes('.DS_Store') &&
     SITE_PATHS.some(
       dir =>
         pagePath.startsWith(dir + '/index') || pagePath.startsWith(dir + '/v2')

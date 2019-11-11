@@ -2,9 +2,9 @@ import { Component } from 'react'
 import { MDXProvider } from '@mdx-js/tag'
 import { withRouter } from 'next/router'
 import { useAmp } from 'next/amp'
-import Link from 'next/link'
 import debounce from 'lodash.debounce'
 import { HEADER_HEIGHT } from '~/lib/constants'
+import NextLink from 'next/link'
 
 import * as bodyLocker from '~/lib/utils/body-locker'
 import Layout from '~/components/layout/layout'
@@ -14,7 +14,7 @@ import components from '~/lib/mdx-components'
 import Content from '~/components/layout/content'
 import VersionSwitcher from '~/components/layout/version-switcher'
 import Context from '~/lib/api/slugs-context'
-import DocsBuilder from '~/lib/api/builder'
+import DocsRuntime from '~/lib/api/runtime'
 import DocsIndex from '~/components/layout/index'
 import getFragment from '~/lib/api/get-fragment'
 import getHref from '~/lib/api/get-href'
@@ -26,7 +26,7 @@ import withPermalink from '~/lib/api/with-permalink'
 import HR from '~/components/text/hr'
 import { FooterFeedback } from '~/components/feedback-input'
 
-import ApiDocs from './api-docs-mdx/index.mdx'
+import ApiDocs from '~/components/references-mdx/api/v2/index.mdx'
 
 const NonAmpOnly = ({ children }) => (useAmp() ? null : children)
 
@@ -158,7 +158,7 @@ class APIPage extends Component {
             titleSuffix=" - ZEIT"
           />
 
-          <DocsBuilder docs={<ApiDocs />}>
+          <DocsRuntime docs={<ApiDocs />}>
             {({ structure }) => (
               <Main>
                 <Sidebar
@@ -174,23 +174,23 @@ class APIPage extends Component {
                           !router.pathname.startsWith('/docs/api')
                         }
                       >
-                        <Link href="/docs">
+                        <NextLink href="/docs">
                           <a onClick={this.handleIndexClick}>Docs</a>
-                        </Link>
+                        </NextLink>
                       </ToggleItem>
                       <ToggleItem
                         active={router.pathname.startsWith('/docs/api')}
                       >
-                        <Link href="/docs/api">
+                        <NextLink href="/docs/api">
                           <a onClick={this.handleIndexClick}>API Reference</a>
-                        </Link>
+                        </NextLink>
                       </ToggleItem>
                       <ToggleItem
                         active={router.pathname.startsWith('/examples')}
                       >
-                        <Link href="/examples">
+                        <NextLink href="/examples">
                           <a onClick={this.handleIndexClick}>Examples</a>
-                        </Link>
+                        </NextLink>
                       </ToggleItem>
                     </ToggleGroup>
                   </div>
@@ -297,7 +297,7 @@ class APIPage extends Component {
                 </Content>
               </Main>
             )}
-          </DocsBuilder>
+          </DocsRuntime>
 
           <style jsx>{`
             ul {

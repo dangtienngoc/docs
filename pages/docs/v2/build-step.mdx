@@ -1,5 +1,5 @@
 import Doc from '~/components/layout/docs'
-import { GenericLink } from '~/components/text/link'
+import Link from '~/components/text/link'
 import Snippet from '~/components/snippet'
 import Caption from '~/components/text/caption'
 import Note from '~/components/text/note'
@@ -18,12 +18,18 @@ export const meta = {
   title: 'Build Step',
   description: 'Providing ZEIT Now with a build step.',
   editUrl: 'pages/docs/v2/build-step.mdx',
-  lastEdited: '2019-10-14T14:21:56.000Z'
+  lastEdited: '2019-11-09T00:07:28.000Z'
 }
 
 When you make a deployment with ZEIT Now, the first step is the build step. Now recognizes a custom `build` script, with that build script outputting your app into the `public` directory.
 
 Now also supports optimized frameworks that only need to be created and then they are ready to deploy with [Now CLI](/download) from the terminal.
+
+<Note>
+  If you are using an{' '}
+  <Link href="#optimized-frameworks">optimized framework</Link>, you must use
+  the default output directory provided by the framework.
+</Note>
 
 You are also able to use [environment variables](#using-environment-variables-and-secrets) (including secrets) in your builds if you do not want to hardcode values for the build.
 
@@ -79,9 +85,9 @@ Adding environment variables requires two steps, defining the environment variab
   This section covers how to make environment variables available at{' '}
   <b>Build Time</b>, if you would like to make them available during{' '}
   <b>Run Time</b>, please see the{' '}
-  <GenericLink href="/docs/v2/serverless-functions/env-and-secrets/">
+  <Link href="/docs/v2/serverless-functions/env-and-secrets/">
     Serverless Functions documentation
-  </GenericLink>
+  </Link>
   .
 </Note>
 
@@ -99,17 +105,17 @@ Adding **Now Secrets** can be done with [Now CLI](/download), providing three op
 To **define a Now Secret**, use the following command:
 
 <Snippet dark text="now secrets add <secret-name> <secret-value>"/>
-<Caption>Defining a <b>Now Secret</b> using <GenericLink href="/now">Now CLI</GenericLink>.</Caption>
+<Caption>Defining a <b>Now Secret</b> using <Link href="/now">Now CLI</Link>.</Caption>
 
 To **remove a Now Secret**, use the following command:
 
 <Snippet dark text="now secrets rm <secret-name>"/>
-<Caption>Removing a <b>Now Secret</b> using <GenericLink href="/now">Now CLI</GenericLink>.</Caption>
+<Caption>Removing a <b>Now Secret</b> using <Link href="/now">Now CLI</Link>.</Caption>
 
 To **rename a Now Secret**, use the following command:
 
 <Snippet dark text="now secrets rename <secret-name> <new-name>"/>
-<Caption>Renaming a <b>Now Secret</b> using <GenericLink href="/now">Now CLI</GenericLink>.</Caption>
+<Caption>Renaming a <b>Now Secret</b> using <Link href="/now">Now CLI</Link>.</Caption>
 
 ### Providing Environment Variables
 
@@ -142,9 +148,15 @@ process.env.VARIABLE_NAME
 
 Now, whenever the `process.env.VARIABLE_NAME` key is used, it will provide the application's build step with the value declared by the referenced **Now Secret**.
 
+### Updating Environment Variables
+
+Environment variables are made available to the build step, meaning that they do not update in the application unless it is redeployed.
+
+If you change the value of a [Now Secret](#adding-secrets) or environment variable and want your application to be aware of this, you should create a new deployment.
+
 ### Reserved Variables
 
-The ZEIT Now platform reserves the usage of some environment variable names by default. You can find a list of these names in the [limits documentation](/docs/v2/advanced/platform/limits/#reserved-variables).
+The ZEIT Now platform reserves the usage of some environment variable names by default. You can find a list of these names in the [limits documentation](/docs/v2/platform/limits/#reserved-variables).
 
 ## Ignored Files and Folders
 
@@ -181,7 +193,7 @@ CVS
   process.
 </Caption>
 
-<Note hint>
+<Note>
   You do not need to add any of the above files and folders to your{' '}
   <InlineCode>.nowignore</InlineCode> file.
 </Note>
@@ -202,7 +214,13 @@ The maximum stored cache for builds is 3Gb.
 
 If a deployment fails, a cache may still be established for successfully built files, but failed builds will not be cached.
 
-#### Prevent Cache Usage
+### Private npm Modules for Static Builds
+
+To install private npm modules, define `NPM_TOKEN` as a [build environment variable](/docs/configuration#project/build-env) in a `now.json` file.
+
+Alternatively, define `NPM_RC` as a [build environment variable](/docs/configuration#project/build-env) with the contents of `~/.npmrc`.
+
+### Prevent Cache Usage
 
 If you need to ignore the cache for a deployment, you can do so by using the [`-f` flag for Now CLI](/docs/now-cli/#commands/now/global-options). This prevents the cache from being used in the deployment and ensures a fresh install for all dependencies.
 

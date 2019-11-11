@@ -3,7 +3,7 @@ import Snippet from '~/components/snippet'
 import Caption from '~/components/text/caption'
 import { InlineCode } from '~/components/text/code'
 import Note from '~/components/text/note'
-import { GenericLink } from '~/components/text/link'
+import Link from '~/components/text/link'
 import { Image } from '~/components/media'
 
 export const meta = {
@@ -12,19 +12,15 @@ export const meta = {
   published: '2019-02-20T03:00:00.860Z',
   authors: ['unicodeveloper'],
   url: '/guides/deploying-hugo-with-now',
+  example: 'hugo',
+  demo: 'https://hugo.now-examples.now.sh',
   editUrl: 'pages/guides/deploying-hugo-with-now.mdx',
-  lastEdited: '2019-10-02T14:07:07.000Z'
+  lastEdited: '2019-11-05T13:14:41.000Z'
 }
 
 [Hugo](https://gohugo.io) is a very popular framework for creating static websites. It's fast and flexible.
 
 In this guide, we will walk you through setting up a Hugo website and deploying it with [ZEIT Now](/now).
-
-Create and deploy a new Hugo project with ZEIT Now without the setup using the button below.
-
-<a href="https://zeit.co/new/project?template=https://github.com/zeit/now-examples/tree/master/hugo">
-  <Image src="https://zeit.co/button" width={104} height={36} align="left" />
-</a>
 
 ## Step 1: Setting Up Your Hugo Project
 
@@ -35,12 +31,12 @@ Therefore, you can either download the appropriate version for your machine from
 For macOS users, you can install Hugo via [Brew](https://brew.sh):
 
 <Snippet dark text="brew install hugo" />
-<Caption>Installing <GenericLink href="https://gohugo.io/getting-started/installing/">Hugo CLI</GenericLink> via <GenericLink href="https://brew.sh/">Homebrew</GenericLink>.</Caption>
+<Caption>Installing <Link href="https://gohugo.io/getting-started/installing/">Hugo CLI</Link> via <Link href="https://brew.sh/">Homebrew</Link>.</Caption>
 
 For Windows users, you can install Hugo via [Chocolatey](https://chocolatey.org/):
 
 <Snippet dark text="choco install hugo -confirm" />
-<Caption>Installing <GenericLink href="https://gohugo.io/getting-started/installing/">Hugo CLI</GenericLink> via <GenericLink href="https://chocolatey.org/">Chocolatey</GenericLink>.</Caption>
+<Caption>Installing <Link href="https://gohugo.io/getting-started/installing/">Hugo CLI</Link> via <Link href="https://chocolatey.org/">Chocolatey</Link>.</Caption>
 
 Next, run the following command to create a Hugo project via the CLI:
 
@@ -91,8 +87,7 @@ First, create a `package.json` in the project directory with the following conte
 ```json
 {
   "scripts": {
-    "install": "curl -L -O https://github.com/gohugoio/hugo/releases/download/v0.55.6/hugo_0.55.6_Linux-64bit.tar.gz && tar -xzf hugo_0.55.6_Linux-64bit.tar.gz",
-    "build": "./hugo"
+    "build": "hugo"
   }
 }
 ```

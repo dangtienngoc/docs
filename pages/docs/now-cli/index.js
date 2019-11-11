@@ -12,7 +12,7 @@ import changeHash from '~/lib/utils/change-hash'
 import components from '~/lib/mdx-components'
 import Content from '~/components/layout/content'
 import Context from '~/lib/api/slugs-context'
-import DocsBuilder from '~/lib/api/builder'
+import DocsRuntime from '~/lib/api/runtime'
 import DocsIndex from '~/components/layout/index'
 import getFragment from '~/lib/api/get-fragment'
 import getHref from '~/lib/api/get-href'
@@ -23,7 +23,7 @@ import withPermalink from '~/lib/api/with-permalink'
 import HR from '~/components/text/hr'
 import { FooterFeedback } from '~/components/feedback-input'
 
-import NowCLI from './now-cli-mdx/index.mdx'
+import NowCLI from '~/components/references-mdx/now-cli/index.mdx'
 
 const NonAmpOnly = ({ children }) => (useAmp() ? null : children)
 
@@ -154,7 +154,7 @@ class NowCLIDocs extends Component {
             titleSuffix=" - ZEIT"
           />
 
-          <DocsBuilder docs={<NowCLI />}>
+          <DocsRuntime docs={<NowCLI />}>
             {({ structure }) => (
               <Main>
                 <Sidebar
@@ -287,7 +287,7 @@ class NowCLIDocs extends Component {
                 </Content>
               </Main>
             )}
-          </DocsBuilder>
+          </DocsRuntime>
 
           <style jsx>{`
             ul {

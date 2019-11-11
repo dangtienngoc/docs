@@ -1,7 +1,7 @@
 import cn from 'classnames'
 import { Component } from 'react'
-import { GenericLink } from '~/components/text/link'
-import { H4 } from '~/components/text'
+import NextLink from 'next/link'
+import Text, { H4 } from '~/components/text'
 
 export default class Card extends Component {
   render() {
@@ -9,10 +9,12 @@ export default class Card extends Component {
 
     return (
       <div className={cn('card', className)} {...props}>
-        <GenericLink href={href} as={as}>
-          {title && <H4>{title}</H4>}
-          <p>{children}</p>
-        </GenericLink>
+        <NextLink href={href} as={as}>
+          <a>
+            {title && <H4>{title}</H4>}
+            <Text small>{children}</Text>
+          </a>
+        </NextLink>
 
         <style jsx>{`
           .card {
